@@ -79,18 +79,6 @@ def ler_rotulo(mensagem: str) -> int:
         print("O rótulo deve ser 0 ou 1.")
 
 
-def dados_de_teste() -> tuple[np.ndarray, np.ndarray, list[str]]:
-    X = np.array(
-        [
-            [20.0, 10.0, 1.0],  # R1
-            [80.0, 60.0, 1.0],  # R2
-            [-20.0, 10.0, 1.0],  # R3
-        ]
-    )
-    d = np.array([0, 1, 1])
-    return X, d, ["R1", "R2", "R3"]
-
-
 def dados_digitados() -> tuple[np.ndarray, np.ndarray, list[str]]:
     quantidade = ler_inteiro("\nQuantos registros deseja cadastrar? ")
     registros = []
@@ -111,26 +99,12 @@ def dados_digitados() -> tuple[np.ndarray, np.ndarray, list[str]]:
 
 def main() -> None:
     print("=== Perceptron simples ===")
-    print("1 - Executar teste pronto")
-    print("2 - Digitar os próprios dados")
-
-    while True:
-        opcao = input("\nEscolha uma opção (1 ou 2): ").strip()
-        if opcao in {"1", "2"}:
-            break
-        print("Escolha 1 ou 2.")
-
-    if opcao == "1":
-        X, d, nomes = dados_de_teste()
-        taxa_aprendizagem = 0.2
-        epocas_max = 5
-    else:
-        X, d, nomes = dados_digitados()
-        taxa_aprendizagem = ler_float("\nTaxa de aprendizagem (ex.: 0.2): ")
-        while taxa_aprendizagem <= 0:
-            print("A taxa de aprendizagem deve ser maior que zero.")
-            taxa_aprendizagem = ler_float("Taxa de aprendizagem: ")
-        epocas_max = ler_inteiro("Número máximo de épocas (ex.: 10): ")
+    X, d, nomes = dados_digitados()
+    taxa_aprendizagem = ler_float("\nTaxa de aprendizagem (ex.: 0.2): ")
+    while taxa_aprendizagem <= 0:
+        print("A taxa de aprendizagem deve ser maior que zero.")
+        taxa_aprendizagem = ler_float("Taxa de aprendizagem: ")
+    epocas_max = ler_inteiro("Número máximo de épocas (ex.: 10): ")
 
     print()
     treinar_perceptron(X, d, nomes, taxa_aprendizagem, epocas_max)
