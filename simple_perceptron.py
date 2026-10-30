@@ -1,7 +1,7 @@
 import numpy as np
 
 # Alunos: Felipe Echeverria, Alexandre Arruda e Sizenando
-
+# Trabalho de perceptron simples de IA
 
 def treinar_perceptron(
     X: np.ndarray,
@@ -10,6 +10,8 @@ def treinar_perceptron(
     taxa_aprendizagem: float,
     epocas_max: int,
 ) -> None:
+    #
+    #  Treina o perceptron e mostra o ajuste dos pesos em cada registro.
     pesos = np.array([0.1, 0.1, 0.1], dtype=float)
 
     print(
@@ -25,9 +27,13 @@ def treinar_perceptron(
             xi = X[i]
             alvo = int(d[i])
             w_ant = pesos.copy()
+
+            # Calcula a saída do modelo e transforma o resultado em 0 ou 1.
             net = np.dot(xi, pesos)
             y = 1 if net > 0 else 0
             erro = alvo - y
+
+            # Corrige os pesos na direção necessária para reduzir o erro.
             delta_w = taxa_aprendizagem * erro * xi
             pesos += delta_w
 
@@ -52,6 +58,7 @@ def treinar_perceptron(
 
 
 def ler_float(mensagem: str) -> float:
+    # Lê um número decimal e repete a pergunta enquanto a entrada for inválida.
     while True:
         try:
             return float(input(mensagem).replace(",", "."))
@@ -60,6 +67,7 @@ def ler_float(mensagem: str) -> float:
 
 
 def ler_inteiro(mensagem: str, minimo: int = 1) -> int:
+    # Lê um inteiro que deve ser maior ou igual ao valor mínimo informado.
     while True:
         try:
             valor = int(input(mensagem))
@@ -68,10 +76,11 @@ def ler_inteiro(mensagem: str, minimo: int = 1) -> int:
                 continue
             return valor
         except ValueError:
-            print("Digite um inteiro válido.")
+            print("Digite um inteiro valido.")
 
 
 def ler_rotulo(mensagem: str) -> int:
+    # Le o rótulo esperado pelo perceptron: somente 0 ou 1.
     while True:
         valor = input(mensagem).strip()
         if valor in {"0", "1"}:
@@ -80,6 +89,7 @@ def ler_rotulo(mensagem: str) -> int:
 
 
 def dados_digitados() -> tuple[np.ndarray, np.ndarray, list[str]]:
+    # Coleta os registros, os rótulos e os nomes usados na tabela de treinamento.
     quantidade = ler_inteiro("\nQuantos registros deseja cadastrar? ")
     registros = []
     rotulos = []
@@ -89,6 +99,8 @@ def dados_digitados() -> tuple[np.ndarray, np.ndarray, list[str]]:
         x1 = ler_float("Digite X1: ")
         x2 = ler_float("Digite X2: ")
         rotulo = ler_rotulo("Digite o rótulo desejado (0 ou 1): ")
+
+        # O 1.0 representa o viés, permitindo que ele seja ajustado junto aos pesos.
         registros.append([x1, x2, 1.0])
         rotulos.append(rotulo)
 
@@ -98,13 +110,14 @@ def dados_digitados() -> tuple[np.ndarray, np.ndarray, list[str]]:
 
 
 def main() -> None:
+    # Organiza a entrada dos dados e inicia o treinamento.
     print("=== Perceptron simples ===")
     X, d, nomes = dados_digitados()
-    taxa_aprendizagem = ler_float("\nTaxa de aprendizagem (ex.: 0.2): ")
+    taxa_aprendizagem = ler_float("\nTaxa de aprendizagem (ex: 0.2): ")
     while taxa_aprendizagem <= 0:
         print("A taxa de aprendizagem deve ser maior que zero.")
         taxa_aprendizagem = ler_float("Taxa de aprendizagem: ")
-    epocas_max = ler_inteiro("Número máximo de épocas (ex.: 10): ")
+    epocas_max = ler_inteiro("Numero máximo de épocas (ex: 10): ")
 
     print()
     treinar_perceptron(X, d, nomes, taxa_aprendizagem, epocas_max)
