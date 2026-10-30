@@ -18,3 +18,9 @@ Ao iniciar, escolha uma das opções:
    `1`), a taxa de aprendizagem e o número máximo de épocas.
 
 As duas opções exibem a tabela de treinamento e os pesos finais.
+
+Para executar automaticamente o teste com dados digitados, use:
+
+```bash
+./run.sh < teste_entrada.txt
+```
