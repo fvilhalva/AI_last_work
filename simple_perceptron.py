@@ -1,6 +1,6 @@
 import numpy as np
 
-# Alunos: Felipe Echeverria, Alexandre Arruda e Sizenando
+# Alunos: Felipe Echeverria (45611), Alexandre Arruda (43551) e Sizenando (50575)
 # Trabalho de perceptron simples de IA
 
 def treinar_perceptron(
